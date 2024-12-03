@@ -7,21 +7,87 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 </head>
 <body>
-    <div id="app">
-    </div>
-    <script type="text/javascript">
+    <div id="app"></div>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/jsx">
         const app = document.getElementById('app');
 
-        // création d'un élément H1
-        const header = document.createElement('h1');
+        function createTitle(title) {
+            if (title) {
+                return title;
+            } else {
+                return '_';
+            }
+        }
 
-        // création d'un élément texte
-        const title = 'EPSI Paris SN2';
-        const textHeader = document.createTextNode(title);
 
-        header.appendChild(textHeader);
-        app.appendChild(header);
+        function Header({title}) {
+            console.log(title);
+            return (<h1>{title}</h1>);
+        }
 
+        function HeaderProps(props) {
+            console.log(props.title);
+            return (<h1>{props.title}</h1>);
+        }
+
+        function HeaderPropsLiteral(props) {
+            console.log(props.title);
+            return (<h1>{`${props.title}`}</h1>);
+        }
+
+        function HeaderPropsFunction(props) {
+            console.log(props.literal);
+            return (<h1>{createTitle(props.title)}</h1>)
+        }
+
+        function Layout() {
+            return (<div id="layout"><Nav/></div>);
+        }
+
+        function Nav() {
+            return (<div id="nav">nav</div>);
+        }
+
+        function HomePage() {
+
+            const [likes, setLikes] = React.useState(0);
+
+            function handleClick() {
+                console.log('increment click like');
+                // ne fonctionne Pas
+                // likes = likes + 1;
+                setLikes(likes + 1);
+            }
+    
+
+            const names = ['Ada Lovelace', 'Grace Hopper', 'Margaret Hamilton'];
+
+            return (
+                <>
+                    <Header title="EPSI"/>
+                    <HeaderProps title="Paris"/>
+                    <HeaderPropsLiteral title="SN2"/>
+                    <HeaderPropsFunction title="Groupe 2"/>
+                    <HeaderPropsFunction />
+                    <ul>
+                        {names.map((item) => (
+                            <li key={item}>{item}</li>
+                        ))}
+                    </ul>
+                    <button onClick={handleClick}>Like ({likes})</button>
+                </>
+            );
+        }
+
+        // déclaration de la racine de notre application react
+        const root = ReactDOM.createRoot(app);
+
+        // ajout du titre H1 directement en enfant du div avec id app
+        root.render(<HomePage />);
     </script>
 </body>
 </html>

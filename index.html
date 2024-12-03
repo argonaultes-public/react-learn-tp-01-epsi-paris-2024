@@ -7,6 +7,21 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 </head>
 <body>
-    
+    <div id="app">
+    </div>
+    <script type="text/javascript">
+        const app = document.getElementById('app');
+
+        // création d'un élément H1
+        const header = document.createElement('h1');
+
+        // création d'un élément texte
+        const title = 'EPSI Paris SN2';
+        const textHeader = document.createTextNode(title);
+
+        header.appendChild(textHeader);
+        app.appendChild(header);
+
+    </script>
 </body>
 </html>
